@@ -1,7 +1,5 @@
 module Deuces
   class Deck
-
-    
     # Deck type can be one of:
     # :standard, :deuces_wild,
     # :one_joker, :two_jokers
@@ -74,9 +72,7 @@ module Deuces
     def add_two_jokers
       2.times { add_one_joker }
     end
-    
-    
-  end
 
+  end
 end
 

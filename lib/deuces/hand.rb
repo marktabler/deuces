@@ -2,13 +2,15 @@ module Deuces
   class Hand
     
     include Scoring
-    
-    attr_accessor :cards
-    
+
     def initialize(deck)
       @cards = deck.deal(5)
     end
     
+    def cards
+      @cards
+    end
+        
     def to_s
       @cards.map(&:to_s).join(' ')
     end
