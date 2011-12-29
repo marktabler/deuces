@@ -6,7 +6,7 @@ class TestDeck < MiniTest::Unit::TestCase
   end
 
   def test_deck_build
-    @standard_deck = Deuces::Deck.new('S')
+    @standard_deck = Deuces::Deck.new(:standard)
     assert @standard_deck.cards.size == 52
     assert @standard_deck.cards.map(&:suit).uniq.size == 4
     assert @standard_deck.cards.map(&:face).uniq.size == 13
@@ -15,7 +15,7 @@ class TestDeck < MiniTest::Unit::TestCase
   end
 
   def test_deuces_build
-    @deuces_deck = Deuces::Deck.new('D')
+    @deuces_deck = Deuces::Deck.new(:deuces_wild)
     assert @deuces_deck.cards.size == 52
     assert @deuces_deck.cards.map(&:suit).uniq.size == 4
     assert @deuces_deck.cards.map(&:face).uniq.size == 13
@@ -24,14 +24,14 @@ class TestDeck < MiniTest::Unit::TestCase
   end
 
   def test_joker_build
-    @two_jokers_deck = Deuces::Deck.new('JJ')
+    @two_jokers_deck = Deuces::Deck.new(:two_jokers)
     assert @two_jokers_deck.cards.size == 54
     assert @two_jokers_deck.cards.compact.uniq == @two_jokers_deck.cards
     assert @two_jokers_deck.cards.select { |card| card.wild? }.size == 2
   end
 
   def test_deal_with_reshuffle
-    @deck = Deuces::Deck.new('S')
+    @deck = Deuces::Deck.new(:standard)
     toss = @deck.deal(50)
     @hand = @deck.deal(5)
     assert_equal 5, @hand.size

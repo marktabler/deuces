@@ -1,8 +1,11 @@
 module Deuces
   class Deck
-    
-    attr_accessor :deck_type, :cards
-    def initialize(deck_type = 'S')
+    attr_accessor :cards
+
+    # Deck type can be one of:
+    # :standard, :deuces_wild,
+    # :one_joker, :two_jokers
+    def initialize(deck_type = :standard)
       @deck_type = deck_type
       build_deck
       shuffle!
@@ -14,16 +17,9 @@ module Deuces
     
     def build_deck
       make_standard_deck
-      case deck_type
-      when 'D'
-        set_deuces_to_wild
-      when 'J'
-        add_one_joker
-      when 'JJ'
-        add_two_jokers
-      end
+      modify_deck
     end
-    
+        
     def make_standard_deck
       @cards = []
       Card::SUITS.keys.each do |suit|
@@ -33,12 +29,23 @@ module Deuces
       end
     end
     
+    def modify_deck
+      case @deck_type
+      when :deuces_wild
+        set_deuces_to_wild
+      when :one_joker
+        add_one_joker
+      when :two_jokers
+        add_two_jokers
+      end
+    end
+
     def set_deuces_to_wild
-      @cards.select { |card| card.face == 2 }.each { |card| card.wild! }
+      @cards.select { |card| card.face == 2 }.each(&:wild!)
     end
     
     def add_one_joker
-      @cards << Card.parse("JO")
+      @cards << Joker.new
     end
     
     def add_two_jokers

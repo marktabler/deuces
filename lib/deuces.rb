@@ -8,7 +8,7 @@ module Deuces
 
   
   def self.run
-    @deck = Deck.new('D')
+    @deck = Deck.new(:deuces_wild)
     @hand = Hand.new(@deck)
     puts @hand
     puts @hand.score
