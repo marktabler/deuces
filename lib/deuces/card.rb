@@ -1,39 +1,40 @@
 module Deuces
   
   class Card
-    FACE_CODES = {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, 'T' => 10,
+    FACES = {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9, 'T' => 10,
       'J' => 11, 'Q' => 12, 'K' => 13, 'A' => 14}
-    SUIT_CODES = {'C' => 1, 'D' => 2, 'H' => 3, 'S' => 4}
-    FACES = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
-    SUITS = ['C', 'D', 'H', 'S']
+    SUITS = {'C' => 1, 'D' => 2, 'H' => 3, 'S' => 4}
     
-    attr_accessor :face, :suit, :wild
+    attr_accessor :face, :suit
     
-    def initialize(code, wild = false)
+    def self.parse(code, wild = false)
       if code == "JO"
-        @face = 1
-        @wild = true
+        Joker.new
       else
-        @face = FACE_CODES[code[0]]
-        @suit = SUIT_CODES[code[1]]
-        @wild = wild
+        face = FACES[code[0]]
+        suit = SUITS[code[1]]
+        Card.new(face, suit, wild)
       end
+    end
+    
+    def initialize(face, suit, wild = false)
+      @face, @suit, @wild = face, suit, wild
     end
     
     def wild?
-      wild
+      @wild
     end
-    
+
+    def wild!
+      @wild = true
+    end
+        
     def joker?
-      face == 1
+      false
     end
     
     def to_s
-      if joker?
-        "JO"
-      else
-        FACES[face - 2] + SUITS[suit - 1]
-      end
+      FACES.invert[face] + SUITS.invert[suit]
     end
 
   end

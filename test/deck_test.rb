@@ -11,7 +11,7 @@ class TestDeck < MiniTest::Unit::TestCase
     assert @standard_deck.cards.map(&:suit).uniq.size == 4
     assert @standard_deck.cards.map(&:face).uniq.size == 13
     assert @standard_deck.cards.compact.uniq == @standard_deck.cards
-    assert !@standard_deck.cards.map(&:wild).any?
+    assert !@standard_deck.cards.map(&:wild?).any?
   end
 
   def test_deuces_build

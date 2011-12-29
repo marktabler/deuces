@@ -26,19 +26,19 @@ module Deuces
     
     def make_standard_deck
       @cards = []
-      Card::SUITS.each do |suit|
-        Card::FACES.each do |face|
-          @cards << Card.new(face + suit)
+      Card::SUITS.keys.each do |suit|
+        Card::FACES.keys.each do |face|
+          @cards << Card.parse(face + suit)
         end
       end
     end
     
     def set_deuces_to_wild
-      @cards.select { |card| card.face == 2 }.each { |card| card.wild = true }
+      @cards.select { |card| card.face == 2 }.each { |card| card.wild! }
     end
     
     def add_one_joker
-      @cards << Card.new("JO")
+      @cards << Card.parse("JO")
     end
     
     def add_two_jokers
