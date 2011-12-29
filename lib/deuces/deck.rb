@@ -51,8 +51,8 @@ module Deuces
           cards_after_shuffle = count - @cards.size
           dealt = @cards
           build_deck
-          shuffle
-          dealt << @cards.slice!(0, cards_after_shuffle)
+          shuffle!
+          dealt = dealt + @cards.slice!(0, cards_after_shuffle)
         else
           raise "Out of cards!"
         end
