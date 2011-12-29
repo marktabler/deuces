@@ -1,7 +1,7 @@
 module Deuces
   class Deck
-    attr_accessor :cards
 
+    
     # Deck type can be one of:
     # :standard, :deuces_wild,
     # :one_joker, :two_jokers
@@ -10,10 +10,33 @@ module Deuces
       build_deck
       shuffle!
     end
-    
+
+    def cards
+      @cards
+    end
+        
     def shuffle!
       @cards.shuffle!
     end
+
+    def deal (count = 1, reshuffle = true)
+      if @cards.size < count
+        if reshuffle
+          cards_after_shuffle = count - @cards.size
+          dealt = @cards
+          build_deck
+          shuffle!
+          dealt = dealt + @cards.slice!(0, cards_after_shuffle)
+        else
+          raise "Out of cards!"
+        end
+      else
+        dealt = @cards.slice!(0, count)
+      end
+      dealt    
+    end
+
+    private
     
     def build_deck
       make_standard_deck
@@ -52,22 +75,7 @@ module Deuces
       2.times { add_one_joker }
     end
     
-    def deal (count = 1, reshuffle = true)
-      if @cards.size < count
-        if reshuffle
-          cards_after_shuffle = count - @cards.size
-          dealt = @cards
-          build_deck
-          shuffle!
-          dealt = dealt + @cards.slice!(0, cards_after_shuffle)
-        else
-          raise "Out of cards!"
-        end
-      else
-        dealt = @cards.slice!(0, count)
-      end
-      dealt    
-    end
+    
   end
 
 end
