@@ -9,14 +9,23 @@ module Deuces
       shuffle!
     end
 
+    # If you need to see what's left in the deck, or how many
+    # cards are left in the deck, this is what lets you see that.
     def cards
       @cards
     end
-        
+
+    # Just shuffles (or reshuffles) the deck.
     def shuffle!
       @cards.shuffle!
     end
 
+    # Deck#deal removes {count} cards from the deck and delivers them as
+    # an array of card objects. Deal also accepts a {reshuffle}
+    # argument that determines whether to automatically reshuffle the
+    # deck if the deck runs out of cards mid-deal. {reshuffle}
+    # defaults to true; if this is explicitly set to false then an
+    # error will be raised if the deck is dealt out.
     def deal (count = 1, reshuffle = true)
       if @cards.size < count
         if reshuffle

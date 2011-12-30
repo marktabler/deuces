@@ -4,7 +4,7 @@ require 'deuces'
 class TestCard < MiniTest::Unit::TestCase
 
   def test_wilds
-    @wild_card = Deuces::Card.parse('2H', true)
+    @wild_card = Deuces::Card.parse('2HW')
     @not_wild_card = Deuces::Card.parse('2C')
     @joker = Deuces::Card.parse('JO')
     assert @wild_card.wild?
@@ -12,7 +12,7 @@ class TestCard < MiniTest::Unit::TestCase
     assert @joker.wild?
   end
 
-  def test_codes
+  def test_parse
     @ace_of_hearts = Deuces::Card.parse('AH')
     assert_equal "AH", @ace_of_hearts.to_s
     assert_equal @ace_of_hearts.suit, Deuces::Card::SUITS['H']
@@ -24,5 +24,7 @@ class TestCard < MiniTest::Unit::TestCase
     assert_equal @eight_of_spades.suit, Deuces::Card::SUITS['S']
     assert_equal @eight_of_spades.face, Deuces::Card::FACES['8']
     assert_equal @eight_of_spades.face, 8
+
+    assert_equal @eight_of_spades, Deuces::Card.parse(@eight_of_spades)
   end
 end

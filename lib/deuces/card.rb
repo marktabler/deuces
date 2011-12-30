@@ -7,13 +7,18 @@ module Deuces
     
     attr_accessor :face, :suit
     
-    def self.parse(code, wild = false)
-      if code == "JO"
+
+    # Card.parse accepts either a single string code or a Card object.
+    # When a card object is received, that card object is returned.
+    # The string code is a face code, a suit code, and any third
+    # character is interpreted as making the card wild.
+    def self.parse(code)
+      return code if code.is_a?(Card)
+      face, suit, wild = code.split(//)
+      if code == "JO" || code == "JOW"
         Joker.new
       else
-        face = FACES[code[0]]
-        suit = SUITS[code[1]]
-        Card.new(face, suit, wild)
+        Card.new(FACES[face], SUITS[suit], wild ? true : false)
       end
     end
     
@@ -34,7 +39,7 @@ module Deuces
     end
     
     def to_s
-      FACES.invert[face] + SUITS.invert[suit]
+      FACES.invert[face] + SUITS.invert[suit] + "#{wild? ? '(W)' : nil}"
     end
 
   end
