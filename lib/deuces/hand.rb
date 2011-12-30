@@ -10,18 +10,29 @@ module Deuces
     def self.parse(hand_code)
       cards = hand_code.split(' ')
       hand = Hand.new
-      hand.stuff(cards)
+      hand.stuff(*cards)
       hand
     end
 
+    # If given a deck object as a parameter, then this will create the hand by
+    # drawing five cards from the deck. If no deck object is provided, then the
+    # new hand will be empty.
     def initialize(deck = nil)
       deck ? @cards = deck.deal(5) : @cards = []
     end
-    
+
+    # Returns all the card objects in the hand.
     def cards
       @cards
     end
-        
+
+    # Returns the number of cards in the hand.
+    def size
+      @cards.size
+    end
+
+    # Calls to_s on each of the cards in the hand and joins them with spaces
+    # into a single string.
     def to_s
       @cards.map(&:to_s).join(' ')
     end
