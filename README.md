@@ -1,4 +1,5 @@
-+Deuces [![Build Status](https://secure.travis-ci.org/marktabler/deuces.png)](http://travis-ci.org/koraktor/deuces)
+The Deuces Project [![Build Status](https://secure.travis-ci.org/marktabler/deuces.png)](http://travis-ci.org/koraktor/deuces)
+------------------
 
 This is a simple API for a video poker game that handles Deuces Wild, Joker Poker, and a standard 52-card game. One day, I was thinking about how difficult it might be to score a poker hand with wild cards, and when I sat down to puzzle it out it started blossoming into a whole program, so I let it blossom. 
 
